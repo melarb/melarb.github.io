@@ -1,12 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>0x6d656c61726269</title>
+    <style>
+        body {
+            background-image: url('images/0x6d656c61726269_new.jpg');
+            background-repeat: repeat;
+            font-family: 'Times New Roman', serif;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .photo {
+            float: left;
+            width: 30%;
+            padding: 10px;
+            box-shadow: 5px 5px 10px #888;
+            margin: 10px;
+            border: 1px solid #ddd;
+            transition: transform .2s;
+        }
+
+        .photo:hover {
+            transform: scale(1.1);
+        }
+
+        /* style for the date (serves as the title) */
+        #currentDate {
+            font-size: 24px;
+            text-decoration: underline;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        /* style for the UTC and EPOCH time */
+        #utcTime,
+        #epochTime {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
 </head>
+
 <body>
-    <img src="0x6d656c61726269.png" alt="" style="width:500px;">
+    <!-- div for displaying the date (serves as the title) -->
+    <div id="currentDate"></div>
+
+    <!-- divs for displaying the UTC time and epoch time -->
+    <div id="utcTime"></div>
+    <div id="epochTime"></div>
+
+    <!-- div for displaying the images -->
+    <div class="container">
+        <img src="images/thetuss_logo.jpg" alt="Photo" class="photo">
+        <img src="images/small_brown_rabbit.JPG" alt="Photo" class="photo">
+        <img src="images/vintage_filter_pink_clematis_fence.JPG" alt="Photo" class="photo">
+        <img src="images/scott_pilgrim.jpeg" alt="Photo" class="photo">
+        <img src="images/street_cleaner_sweeping_leaves.JPG" alt="Photo" class="photo">
+        <img src="images/highlighted_white_cat_stairs.JPG" alt="Photo" class="photo">
+        <img src="images/palmistry_tinkerbell_logo.JPG" alt="Photo" class="photo">
+    </div>
+
+    <!-- jS for updating the date, UTC time, and epoch time -->
+    <script>
+        function updateDate() {
+            const now = new Date();
+            const estTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+            const year = estTime.getFullYear();
+            const month = String(estTime.getMonth() + 1).padStart(2, '0');
+            const day = String(estTime.getDate()).padStart(2, '0');
+            const formattedDate = `${year}${month}${day}`;
+            document.getElementById("currentDate").innerText = formattedDate;
+        }
+
+        function updateUTCTime() {
+            const now = new Date();
+            const utcTime = now.toUTCString().slice(17, 25); // extract only the time part
+            document.getElementById("utcTime").innerText = utcTime;
+        }
+
+        function updateEpochTime() {
+            const now = new Date();
+            const epochTime = Math.floor(now.getTime() / 1000);
+            document.getElementById("epochTime").innerText = epochTime;
+        }
+
+        updateDate();
+        setInterval(updateDate, 24 * 60 * 60 * 1000);
+        setInterval(updateUTCTime, 1000); // update UTC time every second
+        setInterval(updateEpochTime, 1000); // update Unix Epoch Time every second
+    </script>
 </body>
+
 </html>
